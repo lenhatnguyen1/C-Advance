@@ -1,4 +1,4 @@
-# Bài 1: Compiler
+# Bài 1: Compiler & Macro
 ## Cài đặt:
 - Visual Studio Code
 - Visual Studio
