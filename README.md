@@ -12,6 +12,7 @@ This is my project to learn and practice advanced programming skills in C/C++ la
 
 **Compiler:** GCC
 
+## List of lessons:
 - 1: Compiler - Macro
 - 2: STDARG - ASSERT
 - 3: Pointer
