@@ -1,8 +1,10 @@
-# C Programming Advance
-This is my project to learn and practice advanced programming skills in C language
+# C/C++ Programming Advance
+This is my project to learn and practice advanced programming skills in C/C++ language
 
-## Instruction
-- Read the `README.md` in each lesson folder to see information about that lesson
+## Authors
+- Lê Nhật Nguyên
+- Github: [@lenhatnguyen1](https://github.com/lenhatnguyen1)
+- Youtube: 
 
 ## Tech Stack
 
@@ -10,20 +12,16 @@ This is my project to learn and practice advanced programming skills in C langua
 
 **Compiler:** GCC
 
-- Lesson 1: Compiler - Macro
-- Lesson 2: STDARG - ASSERT
-- Lesson 3: Pointer
-- Lesson 4: Extern - Static - Volatile
-- Lesson 5: Goto - Setjmp
-- Lesson 6: Bitmask
-- Lesson 7: Struct - Union
-- Lesson 8: JSON
-- Lesson 9: Memory Layout
-- Lesson 10: Linked List
-- Lesson 11: Stack - Queue
-- Lesson 12: Binary Search
+- 1: Compiler - Macro
+- 2: STDARG - ASSERT
+- 3: Pointer
+- 4: Extern - Static - Volatile
+- 5: Goto - Setjmp
+- 6: Bitmask
+- 7: Struct - Union
+- 8: JSON
+- 9: Memory Layout
+- 10: Linked List
+- 11: Stack - Queue
+- 12: Binary Search
 
-
-## Authors
-
-- [@lenhatnguyen1](https://github.com/lenhatnguyen1)
