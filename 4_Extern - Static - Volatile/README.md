@@ -3,16 +3,19 @@
 Khái niệm Extern trong ngôn ngữ lập trình C được sử dụng để thông báo rằng một biến hoặc hàm đã được khai báo ở một nơi khác trong chương trình hoặc trong một file nguồn khác. Điều này giúp chương trình hiểu rằng biến hoặc hàm đã được định nghĩa và sẽ được sử dụng từ một vị trí khác, giúp quản lý sự liên kết giữa các phần khác nhau của chương trình hoặc giữa các file nguồn.
 ```c
 #include <stdio.h>
-void exampleFunction() {
-    static int count = 0;  // Biến static giữ giá trị qua các lần gọi hàm
-    count++;
-    printf("Count: %d\n", count);
-}
+
+// Khai báo các hàm từ file khác
+void display();
+void updateCount();
 
 int main() {
-    exampleFunction();  // In ra "Count: 1"
-    exampleFunction();  // In ra "Count: 2"
-    exampleFunction();  // In ra "Count: 3"
+    extern int count; // Khai báo biến toàn cục
+
+    printf("Count trong main: %d\n", count);
+    display();
+    updateCount();
+    display();
+
     return 0;
 }
 ```

@@ -1,64 +1,10 @@
-# Bài 8: JSON
-JSON (JavaScript Object Notation) là 1 định dạng truyền tải dữ liệu dựa trên cặp key - value
-
-## Các định dạng
-```c
-char *json = “ 
-{ 
-  "name": "John Doe",
-  "age": 30,
-  "city": "New York",
-  "isStudent": false,
-  "grades": [85, 90, 78]
-}
-
-“
-```
-```c
-typedef enum {
-    JSON_NULL,
-    JSON_BOOLEAN,
-    JSON_NUMBER,
-    JSON_STRING,
-    JSON_ARRAY,
-    JSON_OBJECT
-} JsonType;
-
-```
-```c
-[
-  {
-    "name": "John Doe",
-    "age": 30,
-    "city": "New York",
-    "occupation": "Software Engineer",
-    "isStudent": false
-  },
-  {
-    "name": "Jane Smith",
-    "age": null,
-    "city": "Los Angeles",
-    "contact": {
-      "email": "jane.smith@example.com",
-      "phone": "555-1234"
-    }
-  },
-  {
-    "name": "Bob Johnson",
-    "age": 35,
-    "city": "Chicago"
-  }
-]
-
-
-```
-```c
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stddef.h>
 #include <ctype.h>
 #include <stdbool.h>
+
 
 typedef enum {
     JSON_NULL,
@@ -343,6 +289,8 @@ void free_json_value(JsonValue *json_value) {
     }
 }
 
+
+
 void test(JsonValue* json_value){
     if (json_value != NULL && json_value->type == JSON_OBJECT) {
         // Truy cập giá trị của các trường trong đối tượng JSON
@@ -411,6 +359,8 @@ void test(JsonValue* json_value){
 }
 
 
+
+
 int main(int argc, char const *argv[])
 {
      // Chuỗi JSON đầu vào
@@ -463,6 +413,8 @@ int main(int argc, char const *argv[])
     // Phân tích cú pháp chuỗi JSON
     JsonValue* json_value = parse_json(&json_str);
 
+
+
    test(json_value);
 
     // Kiểm tra kết quả phân tích cú pháp
@@ -470,6 +422,8 @@ int main(int argc, char const *argv[])
        // Giải phóng bộ nhớ được cấp phát cho JsonValue
     free_json_value(json_value);
     
+    
+
         //printf("test = %x", '\"');
 
        // hienthi(5);
@@ -478,5 +432,3 @@ int main(int argc, char const *argv[])
 }
 
 
-
-```
