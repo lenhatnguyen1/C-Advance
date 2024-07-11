@@ -31,6 +31,8 @@ File Infomation
 */
 #include <stdio.h>
 #include "ui.h"
+#include "member.h"
+
 int main() {
 	int option;
 	while (1) {
@@ -50,19 +52,19 @@ int main() {
 		else {
 			switch (option) {
 			case 1:
-				printf("Showed\n");
+				showMember();
 				break;
 			case 2:
-				printf("Added\n");
+				addMember();
 				break;
 			case 3:
-				printf("Updated\n");
+				updateMember();
 				break;
 			case 4:
-				printf("Deleted\n");
+				deleteMember();
 				break;
 			case 5:
-				printf("Found\n");
+				findMember();
 				break;
 			default:
 				printf("Invalid option. Please try again.\n");

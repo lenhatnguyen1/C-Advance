@@ -22,5 +22,14 @@ typedef struct MemberNode {
 	struct MemberNode* next;
 } MemberNode;
 
+void showMember();
+
+void addMember();
+
+void updateMember();
+
+void deleteMember();
+
+void findMember();
 
 #endif // !MEMBER_H

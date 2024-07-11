@@ -18,3 +18,23 @@ void printMember(const Member* member) {
     printf("Name: %s\n", member->name);
     printf("License Plate: %s\n", member->licensePlate);
 }
+
+void showMember() {
+	printf("Show Member\n");
+}
+
+void addMember() {
+	printf("Add Member\n");
+}
+
+void updateMember() {
+	printf("Update Member\n");
+}
+
+void deleteMember() {
+	printf("Delete Member\n");
+}
+
+void findMember() {
+	printf("Find Member\n");
+}
