@@ -1,5 +1,4 @@
 ﻿/*
-File Infomation
 - File name: member.h
 - Author: Le Nhat Nguyen
 - Feature: header file for member
@@ -11,10 +10,10 @@ File Infomation
 #ifndef MEMBER_H
 #define	MEMBER_H
 typedef struct {
-	char uid[20]; // UID của RFID
-	char roomNumber[10]; // Số phòng
-	char name[50]; // Tên
-	char licensePlate[20]; // Biển Số Xe
+	char uid[20]; // UID of RFID
+	char roomNumber[10]; // Room ID
+	char name[50]; // Name
+	char licensePlate[20]; // Plate
 } Member;
 
 typedef struct MemberNode {
