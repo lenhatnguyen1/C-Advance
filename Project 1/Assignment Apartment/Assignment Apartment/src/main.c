@@ -4,13 +4,11 @@
 
 Project: Apartment resident information management
 
-Introduction: Develop a C program to manage resident information in the apartment building
-
 Author: Le Nhat Nguyen
 
-Created at: 06/7/24
+Created at: 2024.07.06
 
-Updated at: 11/7/24
+Updated at: 2024.07.15
 
 Language: C
 
@@ -22,16 +20,17 @@ Language: C
 - Author: Le Nhat Nguyen
 - Feature: main file of project
 - Created at: 06/7/24
-- Updated at: 12/7/24
+- Updated at: 14/7/24
 */
 
 /* Include the library and header file */
 #include <stdio.h>
-#include "ui.h"
-#include "member.h"
+#include "../include/ui.h"
+#include "../include/member.h"
 
 int main() {
-	const char* menuOptions[] = { // Declare the list of menu option
+	// Declare the list of menu option
+	const char* menuOptions[] = { 
 		"Show Member List",
 		"Add Member",
 		"Update Member",
@@ -39,9 +38,11 @@ int main() {
 		"Find Member",
 	};
 
-	int menuSize = sizeof(menuOptions) / sizeof(menuOptions[0]); // Calculate menu size (to use in loop)
-
-	int option; // The variable store the choice of user in menu
+	// Calculate menu size (to use in loop)
+	int menuSize = sizeof(menuOptions) / sizeof(menuOptions[0]); 
+	
+	// The variable store the choice of user in menu
+	int option;
 
 	while (1) {
 		displayMenu(menuSize, menuOptions);
@@ -52,8 +53,6 @@ int main() {
 			while (getchar() != '\n'); // Delete buffer to avoid infinity loop
 			continue;
 		}
-
-		getchar(); // Remove character "Enter" of buffer
 		
 		// Exit the program if user choice is "0"
 		if (option == 0) { 

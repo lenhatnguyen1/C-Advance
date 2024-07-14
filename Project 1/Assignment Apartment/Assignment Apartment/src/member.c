@@ -2,13 +2,21 @@
 - File name: member.c
 - Author: Le Nhat Nguyen
 - Feature: source file for member
-- Created at: 06/7/24
-- Updated at: 08/7/24
+- Created at: 2024.07.06
+- Updated at: 2024.07.15
 */
 
-#include "member.h"
+#include "../include/member.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+// Create a new MemberNode
+MemberNode* createMemberNode(Member member) {
+	MemberNode* newNode = (MemberNode*)malloc(sizeof(MemberNode));
+	newNode->data = member;
+	newNode->next = NULL;
+	return newNode;
+}
 
 void printMember(const Member* member) {
     printf("UID: %s\n", member->uid);

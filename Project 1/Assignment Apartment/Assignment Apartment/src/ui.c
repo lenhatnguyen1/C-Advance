@@ -2,12 +2,13 @@
 - File name: ui.c
 - Author: Le Nhat Nguyen
 - Feature: source file for UI
-- Created at: 09/7/24
-- Updated at: 11/7/24
+- Created at: 2024.07.09
+- Updated at: 2024.07.15
 */
+
 #include <stdio.h>
 #include <stdarg.h>
-#include "ui.h"
+#include "../include/ui.h"
 
 void displayMenu(int optionCount, const char* options[]) {
 	printf("----------------------------------------------\n");
