@@ -13,24 +13,33 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\NewFilter1">
-      <UniqueIdentifier>{b4d5837c-1568-4ffb-b76d-92b4e901bf96}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.c">
+    <ClCompile Include="src\main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="member.c">
+    <ClCompile Include="src\member.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ui.c">
+    <ClCompile Include="src\ui.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\constant.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ui.h">
-      <Filter>Header Files\NewFilter1</Filter>
+    <ClInclude Include="include\member.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\constant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ResidentData.csv" />
   </ItemGroup>
 </Project>

@@ -128,13 +128,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\constant.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\member.c" />
     <ClCompile Include="src\ui.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\constant.h" />
     <ClInclude Include="include\member.h" />
     <ClInclude Include="include\ui.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ResidentData.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

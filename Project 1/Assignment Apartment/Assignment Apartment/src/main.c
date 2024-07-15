@@ -25,8 +25,14 @@ Language: C
 
 /* Include the library and header file */
 #include <stdio.h>
+#include <stdlib.h>
 #include "../include/ui.h"
 #include "../include/member.h"
+#include "../include/constant.h"
+
+#ifndef _countof
+#define _countof(array) (sizeof(array) / sizeof(array[0]))
+#endif
 
 int main() {
 	// Declare the list of menu option
@@ -39,11 +45,12 @@ int main() {
 	};
 
 	// Calculate menu size (to use in loop)
-	int menuSize = sizeof(menuOptions) / sizeof(menuOptions[0]); 
+	//int menuSize = sizeof(menuOptions) / sizeof(menuOptions[0]); 
+	int menuSize = _countof(menuOptions);
 	
 	// The variable store the choice of user in menu
 	int option;
-
+	
 	while (1) {
 		displayMenu(menuSize, menuOptions);
 		if (scanf_s("%d", &option) != 1) {
@@ -57,9 +64,9 @@ int main() {
 		// Exit the program if user choice is "0"
 		if (option == 0) { 
 			break;
-		}
+		}   
 		// Process user choice
-		processMenuOption(option);
+		processUserOption(option);
 		
 	}
 	

@@ -7,14 +7,16 @@
 */
 #pragma once
 #ifndef UI_H
-#define	UI_H
+#define UI_H
 
-const char* menuOptions[];
+#ifndef _countof
+#define _countof(array) (sizeof(array) / sizeof(array[0]))
+#endif
 
 /* Displays the menu options to the user */
 void displayMenu(int optionCount, const char* options[]);
 
+/* Process user choice, call function has the corresponding function */
+void processUserOption(int option);
 
-/* Process user choice, call function has the corresponding function  */
-void processMenuOption(int option);
-#endif // !UI_H
+#endif // UI_H
