@@ -14,7 +14,7 @@
 
 void displayMenu(int optionCount, const char* options[]) {
     printf("----------------------------------------------\n");
-    printf("---------| RESIDENT MANAGER PROGRAM |---------\n");
+    printf("---------| RESIDENT MANAGEMENT |---------\n");
     printf("----------------------------------------------\n");
     for (int i = 1; i <= optionCount; i++) {
         printf("%d. %s\n", i, options[i - 1]);
@@ -29,7 +29,7 @@ void processUserOption(int option) {
 
     switch (option) {
     case 1:
-        showMember();
+        displayMemberList();
         break;
 
     case 2: {

@@ -25,7 +25,7 @@ typedef struct MemberNode {
 // Create a new MemberNode
 MemberNode* createMemberNode(Member member);
 
-void showMember();
+void displayMemberList();
 void addMember(const char* filename, Member member);
 void updateMember();
 void deleteMember();

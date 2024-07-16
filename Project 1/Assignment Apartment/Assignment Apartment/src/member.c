@@ -1,22 +1,21 @@
 ﻿/*
 - File name: member.c
 - Author: Le Nhat Nguyen
-- Feature: source file for member
+- Feature: source file for member action
 - Created at: 2024.07.06
-- Updated at: 2024.07.15
+- Updated at: 2024.07.16
 */
 
 #include "../include/member.h"
 #include "../include/constant.h"
 #include <stdio.h>
-#include <stdlib.h>  // Include for malloc and free
-#include <string.h>  // Include if you need string operations
+#include <stdlib.h>
+#include <string.h>
 
 // Create a new MemberNode
 MemberNode* createMemberNode(Member member) {
     MemberNode* newNode = (MemberNode*)malloc(sizeof(MemberNode));
     if (newNode == NULL) {
-        // Handle memory allocation failure
         fprintf(stderr, "Error: Memory allocation failed\n");
         return NULL;
     }
@@ -25,69 +24,73 @@ MemberNode* createMemberNode(Member member) {
     return newNode;
 }
 
-// Function to read and display member information from "ResidentData.csv"
-void showMember() {
-    FILE* file;
-    errno_t err;
+// Append a new node to the linked list
+void appendMemberNode(MemberNode** head, Member member) {
+    MemberNode* newNode = createMemberNode(member);
+    if (*head == NULL) {
+        *head = newNode;
+    }
+    else {
+        MemberNode* temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
 
-    // Open file for reading
-    err = fopen_s(&file, FILE_NAME_DIRECTION, "r");
+// Read a member from a line of CSV
+Member parseMemberFromLine(char* line) {
+    Member member;
+    char* next_token;
+    char* token = strtok_s(line, ",", &next_token);
+
+    if (token != NULL) strcpy_s(member.uid, sizeof(member.uid), token);
+    token = strtok_s(NULL, ",", &next_token);
+    if (token != NULL) strcpy_s(member.roomNumber, sizeof(member.roomNumber), token);
+    token = strtok_s(NULL, ",", &next_token);
+    if (token != NULL) strcpy_s(member.name, sizeof(member.name), token);
+    token = strtok_s(NULL, ",", &next_token);
+    if (token != NULL) strcpy_s(member.licensePlate, sizeof(member.licensePlate), token);
+
+    return member;
+}
+
+// Function to read and display member information from "ResidentData.csv"
+void displayMemberList() {
+    FILE* file;
+    errno_t err = fopen_s(&file, FILE_NAME_DIRECTION, "r");
     if (err != 0) {
         perror("Error opening file");
         return;
     }
 
-    char line[256]; // Buffer to hold each line read from the file
+    char line[256];
+    MemberNode* head = NULL;
 
-    // Read each line from the file
+    printf("\n* Member List *\n\n");
+
     while (fgets(line, sizeof(line), file)) {
-        // Initialize variables for strtok_s
-        char* next_token;
-        char* token = strtok_s(line, ",", &next_token);
-        if (token == NULL) {
-            // Handle empty line or other errors
-            continue;
-        }
+        Member member = parseMemberFromLine(line);
+        appendMemberNode(&head, member);
+    }
+    fclose(file);
 
-        // Initialize a Member struct to store data
-        Member member;
-
-        // Copy data into member struct fields using strcpy_s
-        strcpy_s(member.uid, sizeof(member.uid), token);
-
-        token = strtok_s(NULL, ",", &next_token);
-        if (token == NULL) {
-            // Handle missing token or other errors
-            continue;
-        }
-        strcpy_s(member.roomNumber, sizeof(member.roomNumber), token);
-
-        token = strtok_s(NULL, ",", &next_token);
-        if (token == NULL) {
-            // Handle missing token or other errors
-            continue;
-        }
-        strcpy_s(member.name, sizeof(member.name), token);
-
-        token = strtok_s(NULL, ",", &next_token);
-        if (token == NULL) {
-            // Handle missing token or other errors
-            continue;
-        }
-        strcpy_s(member.licensePlate, sizeof(member.licensePlate), token);
-
-        // Print member data
-        printf("UID: %s\n", member.uid);
-        printf("Room Number: %s\n", member.roomNumber);
-        printf("Name: %s\n", member.name);
-        printf("License Plate: %s\n", member.licensePlate);
-        printf("\n");
+    MemberNode* current = head;
+    while (current != NULL) {
+        printMember(&current->data);
+        current = current->next;
     }
 
-    // Close the file
-    fclose(file);
+    // Free the linked list
+    while (head != NULL) {
+        MemberNode* temp = head;
+        head = head->next;
+        free(temp);
+    }
 }
 
+// Add a new member to the file and display updated list
 void addMember(const char* filename, Member member) {
     FILE* file = NULL;
     errno_t err = fopen_s(&file, filename, "a");
@@ -97,6 +100,8 @@ void addMember(const char* filename, Member member) {
     }
     fprintf(file, "%s,%s,%s,%s\n", member.uid, member.roomNumber, member.name, member.licensePlate);
     fclose(file);
+    printf("New member added successfully!\n");
+    displayMemberList();
 }
 
 void updateMember() {
@@ -111,6 +116,7 @@ void findMember() {
     printf("Find Member\n");
 }
 
+// Print member details
 void printMember(const Member* member) {
     printf("UID: %s\n", member->uid);
     printf("Room Number: %s\n", member->roomNumber);
