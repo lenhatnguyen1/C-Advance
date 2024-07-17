@@ -28,44 +28,55 @@ This is my project to learn and practice advanced programming skills in C/C++ la
 
 ## Lesson 1: Compiler - Macro
 ### Compiler
-Compiler trong ngôn ngữ C là chương trình chuyển đổi mã nguồn từ ngôn ngữ lập trình cấp cao (C) sang ngôn ngữ máy (mã nhị phân) mà máy tính có thể hiểu và thực thi được. Quá trình này bao gồm nhiều bước chính:
+Compiler is a program that translates source code from a high-level language (like C) into machine code (binary code) that a computer can understand and execute. This process involves several key steps:
 
-- Preprocessing (Tiền xử lý): Xử lý các chỉ thị tiền xử lý như #include, #define.
-- Compilation (Biên dịch): Chuyển đổi mã nguồn C thành mã assembly.
-- Assembly (Lắp ráp): Chuyển đổi mã assembly thành mã máy (mã nhị phân).
-- Linking (Liên kết): Kết hợp mã máy với các thư viện cần thiết để tạo ra tệp thực thi cuối cùng.
-Các compiler phổ biến cho C bao gồm GCC (GNU Compiler Collection), Clang, và MSVC (Microsoft Visual C++).
+1. Preprocessing: Handles preprocessing directives like #include and #define.
+2. Compilation: Converts C source code into assembly code.
+3. Assembly: Translates assembly code into machine code (binary code).
+4. Linking: Combines machine code with necessary libraries to produce the final executable file.
 
 ### Macro
-Trong ngôn ngữ C, macro là một đoạn mã ngắn hoặc một chuỗi lệnh được định nghĩa bằng chỉ thị tiền xử lý #define. Macro giúp đơn giản hóa mã nguồn và tránh lặp lại các đoạn mã giống nhau. Macro được xử lý trước khi quá trình biên dịch bắt đầu.
+In C language, a macro is a short segment of code or a sequence of commands defined using the preprocessing directive #define. Macros simplify source code and prevent repetition of identical code segments. Macros are processed before the compilation process begins.
 
-Có hai loại macro chính:
+There are two main types of macros:
 
-Object-like Macro: Được sử dụng để định nghĩa các hằng số.
+Object-like Macro: Used to define constants.
+
 
 `#define PI 3.14`
-Function-like Macro: Được sử dụng để định nghĩa các hàm ngắn gọn.
-
+Function-like Macro: Used to define short functions.
 
 `#define MAX(a, b) ((a) > (b) ? (a) : (b))`
-Lợi ích của macro:
+Benefits of macros include:
 
-Giúp mã nguồn gọn gàng, dễ bảo trì.
-Tăng hiệu suất chương trình do tránh được overhead của lời gọi hàm (function call).
-Nhược điểm của macro:
+- Simplifying and maintaining clean source code.
+- Improving program efficiency by avoiding function call overhead.
+- Drawbacks of macros include:
 
-Không có kiểm tra kiểu (type checking), có thể dẫn đến lỗi không mong muốn.
-Khó debug do không có thông tin về macro trong mã máy.
+Lack of type checking, which can lead to unexpected errors.
+Difficulties in debugging due to the absence of macro information in machine code.
+
+### Macro and Function Comparison
+#### Definition:
+- Macro: Defined using the #define directive in C/C++. Macros are essentially text substitutions that occur during preprocessing.
+- Function: Defined using a function prototype and implementation. Functions encapsulate a block of code that is executed when called.
+
+#### Speed:
+- Macro: Generally faster because they are expanded inline at compile time. There is no overhead of function call, as the code is inserted directly into the program where the macro is used.
+- Function: May have a slight overhead due to the function call mechanism (pushing arguments onto the stack, jumping to the function, etc.). However, modern compilers can often optimize functions to inline them where appropriate, reducing this overhead.
+
+#### Size:
+- Macro: Can potentially increase code size because each use of the macro results in the actual code being inserted at multiple points in the program.
+- Function: Generally results in smaller code size because the function code is stored once in memory and reused at each call point.
 
 ## Lesson 2: 
 ### stdarg.h
-Thư viện stdarg.h trong ngôn ngữ C cung cấp các macro để xử lý các hàm có số lượng tham số không cố định, còn gọi là variadic functions. Các macro chính bao gồm:
+The stdarg.h library in C provides macros for handling functions with a variable number of arguments, also known as variadic functions. The main macros include:
 
-va_list: Kiểu dữ liệu dùng để khai báo một biến lưu trữ danh sách các tham số.
-va_start: Khởi tạo danh sách các tham số.
-va_arg: Lấy ra từng tham số trong danh sách.
-va_end: Kết thúc việc xử lý danh sách các tham số.
-Ví dụ về sử dụng variadic functions:
+va_list: A data type used to declare a variable that stores the list of arguments.
+va_start: Initializes the list of arguments.
+va_arg: Retrieves each argument in the list.
+va_end: Ends the processing of the list of arguments.
 
 ```c
 #include <stdio.h>
@@ -89,9 +100,9 @@ int main() {
 }
 ```
 ### assert.h
-Thư viện assert.h cung cấp macro assert để kiểm tra các điều kiện trong quá trình chạy chương trình. Nếu điều kiện không đúng (false), chương trình sẽ in ra thông báo lỗi và kết thúc.
+The assert.h library provides the assert macro to check conditions during program execution. If the condition is false, the program prints an error message and terminates.
 
-Cú pháp:
+Syntax:
 
 ```c
 #include <assert.h>
@@ -112,19 +123,17 @@ int main() {
     return 0;
 }
 ```
-Lợi ích của assert:
+Benefits of assert include:
+- Early detection of logical errors during development.
+- Can be disabled in the release build by defining NDEBUG before including assert.h.
 
-Giúp phát hiện sớm các lỗi logic trong quá trình phát triển.
-Có thể bị vô hiệu hóa (disabled) trong phiên bản phát hành (release build) bằng cách định nghĩa NDEBUG trước khi bao gồm assert.h.
 ```c
 #define NDEBUG
 #include <assert.h>
 ```
 ## Lesson 3: Pointer
 ### Pointer
-Pointer (con trỏ) là một biến lưu trữ địa chỉ của một biến khác. Con trỏ giúp chúng ta truy cập và thao tác trực tiếp trên bộ nhớ.
-
-Cú pháp khai báo con trỏ:
+A pointer is a variable that stores the address of another variable. Pointers allow us to access and manipulate memory directly.
 
 ```c
 int *ptr;
@@ -137,12 +146,10 @@ int *ptr = &x;  // ptr lưu địa chỉ của x
 printf("%d", *ptr);  // truy cập giá trị của x thông qua ptr
 ```
 ### Void Pointer
-Void pointer (con trỏ kiểu void) là con trỏ có thể trỏ tới bất kỳ kiểu dữ liệu nào. Void pointer không thể dereference trực tiếp vì không biết kích thước của dữ liệu nó trỏ tới.
-
-Khai báo:
+Void Pointer: A pointer that can point to any data type. A void pointer cannot be dereferenced directly because it does not know the size of the data it points to.
 
 `void *ptr;`
-Ví dụ:
+Example:
 
 ```c
 int x = 10;
@@ -150,12 +157,11 @@ void *ptr = &x;
 printf("%d", *(int *)ptr);  // cần ép kiểu trước khi dereference
 ```
 ### Function Pointer
-Function pointer (con trỏ hàm) là con trỏ lưu trữ địa chỉ của một hàm. Có thể dùng con trỏ hàm để gọi hàm một cách linh hoạt.
+Function Pointer: A pointer that stores the address of a function. Function pointers can be used to call functions flexibly.
 
-Khai báo:
 
 `return_type (*ptr)(parameter_types);`
-Ví dụ:
+Example:
 
 ```c
 #include <stdio.h>
@@ -171,7 +177,7 @@ int main() {
 }
 ```
 ### Pointer to Constant
-Pointer to constant (con trỏ tới hằng số) là con trỏ không thể thay đổi giá trị mà nó trỏ tới, nhưng có thể thay đổi địa chỉ mà nó lưu.
+Pointer to Constant: A pointer that cannot change the value it points to, but can change the address it holds.
 
 Khai báo:
 
@@ -186,7 +192,7 @@ ptr = &y;  // hợp lệ
 //*ptr = 30;  // lỗi, không thể thay đổi giá trị của x thông qua ptr
 ```
 ### Constant Pointer
-Constant pointer (con trỏ hằng) là con trỏ không thể thay đổi địa chỉ mà nó lưu, nhưng có thể thay đổi giá trị mà nó trỏ tới.
+Constant Pointer: A pointer that cannot change the address it holds, but can change the value it points to.
 
 Khai báo:
 
@@ -201,9 +207,7 @@ int *const ptr = &x;
 *ptr = 30;  // hợp lệ, có thể thay đổi giá trị của x thông qua ptr
 ```
 ### Pointer to Constant
-Con trỏ kết hợp cả hai tính chất trên, không thể thay đổi cả địa chỉ và giá trị mà nó trỏ tới.
-
-Khai báo:
+Constant Pointer to Constant: A pointer that cannot change either the address it holds or the value it points to.
 
 `const int *const ptr;`
 Ví dụ:
