@@ -218,54 +218,45 @@ const int *const ptr = &x;
 //ptr = &y;  // lỗi
 //*ptr = 20;  // lỗi
 ```
+
+### Pointer to Pointer
+A pointer to a pointer in C is a construct that allows you to reference another pointer.
+`int **ptr;`
+```c
+ int value = 10;    // A simple integer variable
+    int *ptr1;         // A pointer to an integer
+    int **ptr2;        // A pointer to a pointer to an integer
+
+    ptr1 = &value;     // ptr1 now holds the address of value
+    ptr2 = &ptr1;      // ptr2 now holds the address of ptr1
+
+    printf("Value: %d\n", value);      // Prints the value of the integer variable
+    printf("Value using ptr1: %d\n", *ptr1); // Prints the value by dereferencing ptr1
+    printf("Value using ptr2: %d\n", **ptr2); // Prints the value by dereferencing ptr2
+```
+
 ## Lesson 4: Memory Layout
-Trong lập trình C, bộ nhớ của một chương trình được chia thành các vùng khác nhau. Dưới đây là các vùng bộ nhớ chính trong layout của bộ nhớ:
+The memory of a program is divided into different regions. Below are the main memory areas in the memory layout:
 
-1. Text Segment (Code Segment):
+#### 1. Text Segment (Code Segment):
+- Contains the program code.
+- Is a read-only memory area, to prevent code modification during execution.
 
-Chứa mã lệnh của chương trình.
-Là vùng bộ nhớ chỉ đọc, để ngăn chặn việc sửa đổi mã lệnh trong quá trình thực thi.
-2. Data Segment:
+#### 2. Data Segment:
+- Contains global variables and static variables that are initialized before the program begins executing.
+Divided into two parts:
+- Initialized Data Segment: Contains global and static variables initialized to a non-zero value.
+- Uninitialized Data Segment (BSS - Block Started by Symbol): Contains global and static variables that are initialized with the value 0 or have not been initialized. The size of this region is set during compilation, but does not take up space in the executable.
 
-Chứa các biến toàn cục (global) và các biến tĩnh (static) được khởi tạo trước khi chương trình bắt đầu thực thi.
-Chia thành hai phần:
-Initialized Data Segment: Chứa các biến toàn cục và tĩnh được khởi tạo với giá trị khác 0.
-Uninitialized Data Segment (BSS - Block Started by Symbol): Chứa các biến toàn cục và tĩnh được khởi tạo với giá trị 0 hoặc chưa được khởi tạo. Kích thước của vùng này được thiết lập trong quá trình biên dịch, nhưng không chiếm dung lượng trong tệp thực thi.
-Heap:
+#### 3. Heap:
+- Used for dynamic memory allocation such as malloc, calloc, realloc.
+- This memory area can be expanded or contracted during program execution.
 
-Được sử dụng cho cấp phát bộ nhớ động (dynamic memory allocation) như malloc, calloc, realloc.
-Vùng bộ nhớ này có thể mở rộng hoặc thu nhỏ trong quá trình thực thi chương trình.
-Stack:
+#### 4. Stack:
+Contains local variables and control information such as function return addresses, function parameters, and automatic variables.
+Developed from the top down (address reduction direction) and automatically managed through function calls and function returns.
 
-Chứa các biến cục bộ (local variables) và các thông tin điều khiển như địa chỉ trả về của hàm, các tham số của hàm, và các biến tự động.
-Phát triển từ trên xuống (hướng giảm địa chỉ) và tự động quản lý thông qua việc gọi hàm và trả về từ hàm.
-Minh họa Layout của Bộ nhớ
-css
-Copy code
-+----------------------+ 0xFFFFFFFF (Top of Memory)
-|       Stack          |
-|          |           |
-|          V           |
-|     (chứa các biến   |
-|     cục bộ và các    |
-|     thông tin điều   |
-|     khiển hàm)       |
-+----------------------+
-|          |           |
-|          V           |
-|         Heap         |
-|     (cấp phát động)  |
-+----------------------+
-| .bss (uninitialized) |   } Data Segment
-| .data (initialized)  |   }
-+----------------------+
-|      Text Segment    | (code segment, read-only)
-+----------------------+ 0x00000000 (Bottom of Memory)
-Ví dụ
-Giả sử có chương trình sau:
-
-c
-Copy code
+```c
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -284,11 +275,64 @@ int main() {
     func();
     return 0;
 }
-Trong ví dụ trên:
+```
 
-global_var được lưu trữ trong initialized data segment.
-static_var được lưu trữ trong BSS segment.
-local_var được lưu trữ trong stack.
-dynamic_var được cấp phát bộ nhớ trong heap thông qua malloc.
-Tổng kết
-Layout bộ nhớ của một chương trình C bao gồm các vùng riêng biệt để quản lý mã lệnh, dữ liệu tĩnh, dữ liệu động và dữ liệu tạm thời. Việc hiểu rõ layout bộ nhớ giúp lập trình viên quản lý bộ nhớ hiệu quả và tránh các lỗi liên quan đến bộ nhớ như tràn stack, tràn heap, hay sử dụng bộ nhớ chưa được cấp phát.
+global_var is stored in the initialized data segment.
+static_var is stored in the BSS segment.
+local_var is stored in the stack.
+dynamic_var is allocated memory in the heap via malloc.
+
+
+## Lesson 5: Goto - Setjmp
+The `goto` statement in C provides a way to transfer control to a labeled statement within the same function. It can be useful for jumping out of nested loops or for handling errors, but it should be used sparingly as it can make code harder to understand and maintain.
+
+Syntax
+```c 
+oto label;
+...
+label:
+    statement;
+```
+Example
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 0;
+
+    printf("Before the jump.\n");
+
+    // Jump to the label named target
+    goto target;
+
+    // This line is skipped
+    printf("This line is skipped.\n");
+
+target:
+    // This is the label target
+    printf("After the jump.\n");
+
+    // Nested loop example
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (i == 1 && j == 1) {
+                goto end_loop;
+            }
+            printf("i = %d, j = %d\n", i, j);
+        }
+    }
+
+end_loop:
+    printf("Exited the nested loop.\n");
+
+    return 0;
+}
+```
+
+Explanation:
+- The goto target; statement transfers control to the target: label, skipping any intermediate code.
+- The first printf before the goto is executed.
+- The printf statement immediately after the goto is skipped.
+- Execution resumes at the target: label, printing "After the jump."
+- In the nested loop example, the goto end_loop; statement is used to break out of the nested loop when i and j are both 1.
+- Control is transferred to the end_loop: label, printing "Exited the nested loop."
