@@ -284,6 +284,7 @@ dynamic_var is allocated memory in the heap via malloc.
 
 
 ## Lesson 5: Goto - Setjmp
+### Goto
 The `goto` statement in C provides a way to transfer control to a labeled statement within the same function. It can be useful for jumping out of nested loops or for handling errors, but it should be used sparingly as it can make code harder to understand and maintain.
 
 Syntax
@@ -293,46 +294,94 @@ oto label;
 label:
     statement;
 ```
-Example
+
+### Setjmp
+setjmp.h is a library in the C programming language, providing two main functions: setjmp and longjmp. Both of these functions are commonly used to perform exception handling in C, although it is not a typical way to handle exceptions in this language.
+
 ```c
 #include <stdio.h>
+#include <setjmp.h>
+
+jmp_buf buf;
+int exception_code;
+
+#define TRY if ((exception_code = setjmp(buf)) == 0) 
+#define CATCH(x) else if (exception_code == (x)) 
+#define THROW(x) longjmp(buf, (x))
+
+
+double divide(int a, int b) {
+    if (b == 0) {
+        THROW(1); // Mã lỗi 1 cho lỗi chia cho 0
+    }
+    return (double)a / b;
+}
 
 int main() {
-    int x = 0;
+    int a = 10;
+    int b = 0;
+    double result = 0.0;
 
-    printf("Before the jump.\n");
-
-    // Jump to the label named target
-    goto target;
-
-    // This line is skipped
-    printf("This line is skipped.\n");
-
-target:
-    // This is the label target
-    printf("After the jump.\n");
-
-    // Nested loop example
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (i == 1 && j == 1) {
-                goto end_loop;
-            }
-            printf("i = %d, j = %d\n", i, j);
-        }
+    TRY {
+        result = divide(a, b);
+        printf("Result: %f\n", result);
+    } CATCH(1) {
+        printf("Error: Divide by 0!\n");
     }
 
-end_loop:
-    printf("Exited the nested loop.\n");
 
+    // Các xử lý khác của chương trình
     return 0;
 }
 ```
 
-Explanation:
-- The goto target; statement transfers control to the target: label, skipping any intermediate code.
-- The first printf before the goto is executed.
-- The printf statement immediately after the goto is skipped.
-- Execution resumes at the target: label, printing "After the jump."
-- In the nested loop example, the goto end_loop; statement is used to break out of the nested loop when i and j are both 1.
-- Control is transferred to the end_loop: label, printing "Exited the nested loop."
+## Lesson 6: Bitmask
+- Bitmask is a technique that uses bits to store and manipulate flags or states. Bitmasks can be used to set, clear, and check the status of specific bits in a word.
+- Bitmasks are often used to optimize memory, perform logical operations on a group of bits, and manage states, access rights, or other attributes of an object.
+### NOT bitwise
+Used to perform a bitwise NOT operation on each bit of a number. The result is the inverted bits of that number.
+int result = ~num;
+
+### AND bitwise
+Used to perform a bitwise AND operation between each pair of bits of two numbers. The result is 1 if both corresponding bits are 1; otherwise, it is 0.
+int result = num1 & num2;
+
+### OR bitwise
+Used to perform a bitwise OR operation between each pair of bits of two numbers. The result is 1 if at least one of the corresponding bits is 1.
+int result = num1 | num2;
+
+### XOR bitwise
+Used to perform a bitwise XOR operation between each pair of bits of two numbers. The result is 1 if only one of the corresponding bits is 1.
+int result = num1 ^ num2;
+
+### Shift left and Shift right bitwise
+Used to shift bits to the left or right.
+In the case of <<, the bits on the right will be shifted to the left, and the leftmost bits will be set to 0.
+In the case of >>, the bits on the left will be shifted to the right, and the rightmost bits will be set to 0 or 1 depending on the value of the highest bit (the sign bit).
+```c 
+int resultLeftShift = num << shiftAmount;
+int resultRightShift = num >> shiftAmount;
+```
+
+## Lesson 7: Struct - Union
+### Struct
+A struct in C is a composite data type that groups together variables of different types under a single name, allowing for the organization of complex data.
+```c
+struct StructName {
+    datatype1 member1;
+    datatype2 member2;
+    // ...
+};
+
+### Union
+A union in C is a data type that allows different variables to share the same memory location, with the size of the union being determined by its largest member.
+
+```c
+union UnionName {
+    datatype1 member1;
+    datatype2 member2;
+    // ...
+};
+```
+
+
