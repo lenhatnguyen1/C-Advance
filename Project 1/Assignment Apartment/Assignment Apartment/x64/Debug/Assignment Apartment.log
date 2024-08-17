@@ -1,2 +1,5 @@
-﻿  member.c
+﻿  main.c
+  member.c
+  ui.c
+  Generating Code...
   Assignment Apartment.vcxproj -> C:\Learn Embedded\Project\C Advance\Project 1\Assignment Apartment\x64\Debug\Resident Manager.exe

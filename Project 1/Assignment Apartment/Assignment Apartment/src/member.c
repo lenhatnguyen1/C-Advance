@@ -1,9 +1,8 @@
 ﻿/*
-- File name: member.c
-- Author: Le Nhat Nguyen
-- Feature: source file for member action
-- Created at: 2024.07.06
-- Updated at: 2024.07.16
+* File name: member.c
+* Author: Le Nhat Nguyen
+* Feature: source file for member action
+* Created at: 2024.07.06
 */
 
 #include "../include/member.h"

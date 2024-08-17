@@ -1,9 +1,8 @@
 /*
-- File name: member.h
-- Author: Le Nhat Nguyen
-- Feature: header file for member
-- Created at: 2024.07.06
-- Updated at: 2024.07.15
+* File name: member.h
+* Author: Le Nhat Nguyen
+* Feature: header file for member
+* Created at: 2024.07.06
 */
 
 #pragma once

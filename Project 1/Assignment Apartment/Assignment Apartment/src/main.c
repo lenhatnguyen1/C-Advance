@@ -16,11 +16,10 @@ Language: C
 */
 
 /*
-- File name: main.c
-- Author: Le Nhat Nguyen
-- Feature: main file of project
-- Created at: 06/7/24
-- Updated at: 14/7/24
+* File name: main.c
+* Author: Le Nhat Nguyen
+* Feature: main file of project
+* Created at: 06/7/24
 */
 
 /* Include the library and header file */
@@ -30,13 +29,13 @@ Language: C
 #include "../include/member.h"
 #include "../include/constant.h"
 
-#ifndef _countof
-#define _countof(array) (sizeof(array) / sizeof(array[0]))
+#ifndef _COUNTOF
+#define _COUNTOF(array) (sizeof(array) / sizeof(array[0]))
 #endif
 
 int main() {
 	// Declare the list of menu option
-	const char* menuOptions[] = { 
+	const char* cMenuOptions[] = { 
 		"Show Member List",
 		"Add Member",
 		"Update Member",
@@ -45,15 +44,14 @@ int main() {
 	};
 
 	// Calculate menu size (to use in loop)
-	//int menuSize = sizeof(menuOptions) / sizeof(menuOptions[0]); 
-	int menuSize = _countof(menuOptions);
+	int iMenuSize = _COUNTOF(cMenuOptions);
 	
 	// The variable store the choice of user in menu
-	int option;
+	int iOption;
 	
 	while (1) {
-		displayMenu(menuSize, menuOptions);
-		if (scanf_s("%d", &option) != 1) {
+		displayMenu(iMenuSize, cMenuOptions);
+		if (scanf_s("%d", &iOption) != 1) {
 			
 			printf("Invalid input. Please enter a number.\n"); // Process if the input is not in menu option
 			
@@ -62,11 +60,11 @@ int main() {
 		}
 		
 		// Exit the program if user choice is "0"
-		if (option == 0) { 
+		if (iOption == 0) { 
 			break;
 		}   
 		// Process user choice
-		processUserOption(option);
+		processUserOption(iOption);
 		
 	}
 	
