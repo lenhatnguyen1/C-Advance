@@ -109,7 +109,7 @@ void StudentManager::loadFromFile() {
             string temp;
 
             try {
-                // Đọc và loại bỏ khoảng trắng
+                // Read and remove blank
                 getline(ss, temp, ',');
                 student.setName(temp);
                 
@@ -189,15 +189,22 @@ void StudentManager::editStudent() {
     string id;
     cout << "Nhap ID sinh vien can sua: ";
     cin >> id;
-    for (auto& student : studentList) {
-        if (student.getId() == id) {
-            student.inputInfo();
-            saveToFile();
-            cout << "Da sua thong tin sinh vien thanh cong!" << endl;
-            return;
-        }
+
+    // Sắp xếp danh sách sinh viên theo ID
+    studentList.sort([](const Student& a, const Student& b) {
+        return a.getId() < b.getId();
+    });
+
+    // Tìm kiếm sinh viên bằng binary search
+    auto it = binarySearch(id);
+    
+    if (it != studentList.end()) {
+        it->inputInfo(); // Sửa thông tin sinh viên
+        saveToFile();
+        cout << "Da sua thong tin sinh vien thanh cong!" << endl;
+    } else {
+        cout << "Sinh vien voi ID nay khong ton tai!" << endl;
     }
-    cout << "Sinh vien voi ID nay khong ton tai!" << endl;
 }
 
 /*
@@ -271,3 +278,29 @@ void StudentManager::displayStudents() const {
     }
 }
 
+/*
+* Function: binarySearch
+* Description: This function use binary search to find student by id
+* Input: id
+* Output: student
+*/
+
+std::list<Student>::iterator StudentManager::binarySearch(const string& id) {
+    auto low = studentList.begin();
+    auto high = std::prev(studentList.end());
+
+    while (std::distance(low, high) >= 0) {
+        auto mid = std::next(low, std::distance(low, high) / 2);
+
+        if (mid->getId() == id) {
+            return mid;  // Tìm thấy ID
+        }
+        if (mid->getId() < id) {
+            low = std::next(mid);
+        } else {
+            high = std::prev(mid);
+        }
+    }
+
+    return studentList.end();  // Không tìm thấy ID
+}

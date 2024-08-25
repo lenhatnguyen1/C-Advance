@@ -56,6 +56,8 @@ private:
     
     void loadFromFile();
     void saveToFile() const;
+
+    list<Student>::iterator binarySearch(const std::string& id);
 public:
     StudentManager();
     void addStudent();
